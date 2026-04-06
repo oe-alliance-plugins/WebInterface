@@ -1,6 +1,5 @@
-from __future__ import print_function
 from enigma import eServiceReference
-from twisted.web import resource, http, server
+from twisted.web import resource, http
 from os import path as os_path
 
 

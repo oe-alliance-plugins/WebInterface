@@ -1,7 +1,6 @@
-from __future__ import print_function
 from enigma import eConsoleAppContainer
 
-from twisted.web import resource, http, http_headers, server
+from twisted.web import resource, http, server
 
 from os import path as os_path, remove as os_remove
 from os.path import getsize as os_path_getsize
@@ -131,7 +130,7 @@ class GrabStream:
 					if self.save is False:
 						os_remove(self.target)
 						print('[Screengrab.py] %s removed' % self.target)
-				except Exception as e:
+				except Exception:
 					self.request.write(b'Internal error while reading target file')
 					self.request.setResponseCode(http.INTERNAL_SERVER_ERROR)
 

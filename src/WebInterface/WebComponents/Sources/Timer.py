@@ -1,5 +1,3 @@
-from __future__ import print_function
-Version = '$Header$'
 
 from enigma import eServiceReference, eEPGCache
 from Components.config import config
@@ -7,10 +5,12 @@ from Components.Sources.Source import Source
 from Components.TimerSanityCheck import TimerSanityCheck
 from Components.UsageConfig import preferredInstantRecordPath, preferredTimerPath
 from ServiceReference import ServiceReference
-from RecordTimer import RecordTimerEntry, RecordTimer, AFTEREVENT, parseEvent
+from RecordTimer import RecordTimerEntry, AFTEREVENT, parseEvent
 
 from xml.sax.saxutils import unescape
-from time import time, strftime, localtime, mktime
+from time import time, mktime
+
+Version = '$Header$'
 
 
 class Timer(Source):
@@ -215,6 +215,7 @@ class Timer(Source):
 # an existing timer with corresponding values will be changed.
 #===============================================================================
 
+
 	def editTimer(self, param):
 		print("[WebComponents.Timer] editTimer")
 
@@ -353,7 +354,7 @@ class Timer(Source):
 									conflicts = timersanitycheck.getSimulTimerList()
 									if conflicts is not None:
 										for x in conflicts:
-											if x.setAutoincreaseEnd(entry):
+											if x.setAutoincreaseEnd():
 												self.session.nav.RecordTimer.timeChanged(x)
 										if not timersanitycheck.check():
 											conflicts = timersanitycheck.getSimulTimerList()
@@ -370,7 +371,7 @@ class Timer(Source):
 
 									return (False, _("Conflicting Timer(s) detected! %s") % (msg))
 
-			except Exception as e:
+			except Exception:
 				#obviously some value was not good, return an error
 				import traceback
 				print(traceback.format_exc())

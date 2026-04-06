@@ -1,11 +1,9 @@
 # -*- coding: UTF-8 -*-
-from __future__ import print_function
-from __future__ import absolute_import
-Version = '$Header$'
 
 # things to improve:
 #	- better error handling
 #	- use namespace parser
+from os import urandom
 
 from Tools.Import import my_import
 
@@ -22,13 +20,12 @@ from twisted.web import http, resource
 from urllib.parse import quote
 from time import time
 
+Version = '$Header$'
+
 #DO NOT REMOVE THIS IMPORT
 #It IS used (dynamically)
-from .WebScreens import *
+from .WebScreens import *  # noqa F403
 #DO NOT REMOVE THIS IMPORT
-
-
-from os import urandom
 
 
 def _decode_if_bytes(value):
@@ -232,11 +229,11 @@ class JavascriptUpdate(Converter):
 
 class SimpleListFiller(Converter):
 	def getText(self):
-		l = self.source.simplelist
+		lst = self.source.simplelist
 		conv_args = self.converter_arguments
 
-		list = []
-		append = list.append
+		items = []
+		append = items.append
 		for element in conv_args:
 			if isinstance(element, str):
 				append((element, None))
@@ -249,17 +246,16 @@ class SimpleListFiller(Converter):
 
 		strlist = []
 		append = strlist.append
-		for item in l:
+		for item in lst:
 			if item is None:
 				item = ""
 			else:
 				#filter out "non-displayable" Characters - at the very end, do it the hard way...
 				item = str(item)  # .replace('\xc2\x86', '').replace('\xc2\x87', '').replace("\x19", "").replace("\x1c", "").replace("\x1e", "").decode("utf-8", "ignore").encode("utf-8")
 
-			for (element, filternum) in list:
+			for (element, filternum) in items:
 				if not filternum:
 					append(element)
-					continue
 				else:
 					appendListItem(item, filternum, append)
 
@@ -274,7 +270,7 @@ class SimpleListFiller(Converter):
 
 class ListFiller(Converter):
 	def getText(self):
-		l = self.source.list
+		lst = self.source.list
 		lut = self.source.lut
 		conv_args = self.converter_arguments
 
@@ -295,7 +291,7 @@ class ListFiller(Converter):
 		# now, for the huge list, do:
 		strlist = []
 		append = strlist.append
-		for item in l:
+		for item in lst:
 			for (element, filternum) in lutlist:
 				#None becomes ""
 				curitem = ""
@@ -303,7 +299,6 @@ class ListFiller(Converter):
 					if element is None:
 						element = ""
 					append(element)
-					continue
 				else:
 					curitem = str(item[element])
 					appendListItem(curitem, filternum, append)
@@ -405,14 +400,12 @@ class webifHandler(ContentHandler):
 
 		if isinstance(source, ObsoleteSource):
 			# however, if we found an "obsolete source", issue warning, and resolve the real source.
-			print("WARNING: WEBIF '%s' USES OBSOLETE SOURCE '%s', USE '%s' INSTEAD!" % (name, wsource, source.new_source))
-			print("OBSOLETE SOURCE WILL BE REMOVED %s, PLEASE UPDATE!" % (source.removal_date))
+			print(f"WARNING: WEBIF USES OBSOLETE SOURCE '{wsource}', USE '{source.new_source}' INSTEAD!")
+			print(f"OBSOLETE SOURCE WILL BE REMOVED {source.removal_date}, PLEASE UPDATE!")
 			if source.description:
 				print(source.description)
 
 			wsource = source.new_source
-		else:
-			pass
 			# otherwise, use that source.
 
 		self.source = source
@@ -653,7 +646,7 @@ def requestFinish(handler, request, requestAlreadyFinished=False):
 
 def get_random():
 	try:
-		xor = lambda a, b: ''.join(chr(ord(c) ^ ord(d)) for c, d in zip(a, b * 100))
+		xor = lambda a, b: ''.join(chr(ord(c) ^ ord(d)) for c, d in zip(a, b * 100))  # noqa E731
 		random = urandom(8)
 		x = str(time())[-8:]
 		result = xor(random, x)

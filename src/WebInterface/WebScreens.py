@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 from enigma import eServiceReference
 from Screens.Screen import Screen
 from Tools.BoundFunction import boundFunction
@@ -208,7 +207,6 @@ class MovieWebScreen(WebScreen):
 	def __init__(self, session, request):
 		WebScreen.__init__(self, session, request)
 		from Components.MovieList import MovieList
-		from Tools.Directories import resolveFilename, SCOPE_HDD
 		from .WebComponents.Sources.Movie import Movie
 
 		movielist = MovieList(None)
@@ -364,8 +362,6 @@ class M3uStreamingWebScreen(WebScreen):
 	def __init__(self, session, request):
 		WebScreen.__init__(self, session, request)
 		from Components.Sources.StaticText import StaticText
-		from Components.Sources.Config import Config
-		from Components.config import config
 		self["ref"] = StaticText()
 
 
@@ -380,8 +376,6 @@ class TsM3uWebScreen(WebScreen):
 	def __init__(self, session, request):
 		WebScreen.__init__(self, session, request)
 		from Components.Sources.StaticText import StaticText
-		from Components.Sources.Config import Config
-		from Components.config import config
 		self["file"] = StaticText()
 
 

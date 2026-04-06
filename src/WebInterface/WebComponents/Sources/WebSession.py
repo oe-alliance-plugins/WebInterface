@@ -1,5 +1,4 @@
 from Components.Sources.Source import Source
-import uuid
 
 
 class WebSession(Source):

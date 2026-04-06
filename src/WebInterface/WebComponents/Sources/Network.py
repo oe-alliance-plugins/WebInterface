@@ -81,7 +81,7 @@ class Network(Source):
 		elif device is self.WLAN:
 			self.iface = "ath0"
 
-	ConvertIP = lambda self, l: "%s.%s.%s.%s" % tuple(l) if l and len(l) == 4 else "0.0.0.0"
+	ConvertIP = lambda self, l: "%s.%s.%s.%s" % tuple(l) if l and len(l) == 4 else "0.0.0.0"  # noqa E731
 
 	def getInterface(self):
 		iface = Interface(self.iface)

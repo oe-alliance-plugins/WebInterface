@@ -1,9 +1,8 @@
-from enigma import eServiceReference, iServiceInformation, eServiceCenter
 from Components.Sources.Source import Source
 from Components.config import config, ConfigLocations
 try:
-	from Plugins.SystemPlugins.SoftwareManager import BackupRestore
-except ImportError as ie:
+	from Plugins.SystemPlugins.SoftwareManager import BackupRestore  # noqa F401
+except ImportError:
 	from enigma import eEnv
 	# defaults from BackupRestore
 	backupdirs = ConfigLocations(default=[eEnv.resolve('${sysconfdir}/enigma2/'), '/etc/network/interfaces', '/etc/wpa_supplicant.conf', '/etc/wpa_supplicant.ath0.conf', '/etc/wpa_supplicant.wlan0.conf', '/etc/resolv.conf', '/etc/default_gw', '/etc/hostname'])
@@ -14,7 +13,7 @@ from re import compile as re_compile
 
 try:
 	import tarfile
-except ImportError as ie:
+except ImportError:
 	tarfile = None
 
 
@@ -64,7 +63,7 @@ class Backup(Source):
 			f.close()
 		else:
 			tarFiles = ' '.join(filenames)
-			lines = popen("tar cv%sf %s %s" % (compression, destfile, tarFiles)).readlines()
+			popen("tar cv%sf %s %s" % (compression, destfile, tarFiles)).readlines()
 		return (True, destfile)
 
 	def backupFiles(self, filename):
@@ -88,12 +87,12 @@ class Backup(Source):
 			f.extractall(path=destination)
 			f.close()
 		else:
-			lines = popen('tar xv%sf %s -C /' % (compression, filename)).readlines()
+			popen('tar xv%sf %s -C /' % (compression, filename)).readlines()
 		return (True, "Backup was successfully restored")
 
 	def restoreFiles(self, filename):
 		if not path.exists(filename):
-			return (False, "Error, %s does not exists, restore is not possible..." % (backupFilename,))
+			return (False, "Error, %s does not exists, restore is not possible..." % (filename,))
 
 		ret = self.unpackTarFile(filename)
 		if ret[0]:

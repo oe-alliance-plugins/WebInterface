@@ -1,7 +1,6 @@
 from enigma import eDVBVolumecontrol  # this is not nice
 from Components.Sources.Source import Source
 from GlobalActions import globalActionMap
-from Components.VolumeControl import VolumeControl
 
 
 class Volume(Source):
@@ -13,18 +12,18 @@ class Volume(Source):
 		self.vol = (True, "State", self.volctrl.getVolume(), self.volctrl.isMuted())
 
 	def handleCommand(self, cmd):
-		l = []
+		lst = []
 		if cmd == "state":
-			l.extend((True, _("State")))
+			lst.extend((True, _("State")))
 		elif cmd == "up":
 			self.actionmap.actions["volumeUp"]()
-			l.extend((True, _("Volume changed")))
+			lst.extend((True, _("Volume changed")))
 		elif cmd == "down":
 			self.actionmap.actions["volumeDown"]()
-			l.extend((True, _("Volume changed")))
+			lst.extend((True, _("Volume changed")))
 		elif cmd == "mute":
 			self.actionmap.actions["volumeMute"]()
-			l.extend((True, _("Mute toggled")))
+			lst.extend((True, _("Mute toggled")))
 		elif cmd.startswith("set"):
 			try:
 				targetvol = int(cmd[3:])
@@ -35,14 +34,14 @@ class Volume(Source):
 
 				self.volctrl.setVolume(targetvol, targetvol)
 
-				l.extend((True, _("Volume set to %i") % targetvol))
+				lst.extend((True, _("Volume set to %i") % targetvol))
 			except ValueError:  # if cmd was set12NotInt
-				l.extend((False, _("Wrong parameter format 'set=%s'. Use set=set15") % cmd))
+				lst.extend((False, _("Wrong parameter format 'set=%s'. Use set=set15") % cmd))
 		else:
-			l.extend((False, _("Unknown Volume command %s") % cmd))
+			lst.extend((False, _("Unknown Volume command %s") % cmd))
 
-		l.extend((self.volctrl.getVolume(), self.volctrl.isMuted()))
+		lst.extend((self.volctrl.getVolume(), self.volctrl.isMuted()))
 
-		self.vol = l
+		self.vol = lst
 
 	volume = property(lambda self: self.vol)

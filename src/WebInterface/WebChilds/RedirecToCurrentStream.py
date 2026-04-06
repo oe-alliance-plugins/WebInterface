@@ -1,5 +1,4 @@
 from twisted.web import resource, server
-from ServiceReference import ServiceReference
 
 
 class RedirecToCurrentStreamResource(resource.Resource):

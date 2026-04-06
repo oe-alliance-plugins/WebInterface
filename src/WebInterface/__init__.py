@@ -1,8 +1,6 @@
-import Plugins.Plugin
 from Components.Language import language
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 import gettext
-from functools import reduce
 
 
 __version__ = "1.9.0"

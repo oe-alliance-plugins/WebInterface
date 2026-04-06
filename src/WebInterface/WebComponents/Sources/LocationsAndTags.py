@@ -1,4 +1,3 @@
-from __future__ import print_function
 from Components.Sources.Source import Source
 from Components.config import config
 from Tools.Directories import resolveFilename, SCOPE_CONFIG, SCOPE_HDD
@@ -47,7 +46,7 @@ class LocationsAndTags(Source):
 			while "" in tags:
 				tags.remove("")
 			file.close()
-		except IOError as ioe:
+		except OSError:
 			tags = ()
 		return tags
 

@@ -1,4 +1,3 @@
-from __future__ import print_function
 from enigma import eDVBDB
 from Components.NimManager import nimmanager
 from Components.Sources.Source import Source
@@ -37,7 +36,7 @@ class ServiceListReload(Source):
 			elif self.cmd is self.PARENTAL:
 				Components.ParentalControl.parentalControl.open()
 				self.res = (True, 'reloaded parentalcontrol white-/blacklist')
-		except Exception as e:
+		except Exception:
 			pass
 
 	def reloadLameDB(self):

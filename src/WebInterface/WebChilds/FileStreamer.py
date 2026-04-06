@@ -1,5 +1,4 @@
-from __future__ import print_function
-from twisted.web import resource, http, server, static
+from twisted.web import resource, server, static
 from urllib.parse import unquote
 from os import path as os_path
 from Tools.Directories import resolveFilename, SCOPE_HDD

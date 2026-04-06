@@ -34,25 +34,23 @@ class ServicePlayable(Source):
 		else:
 			return self.convertStrTrueFalse(self.info.isPlayable(refToPlay, refPlaying))
 
-		return false
-
 	def getPlayableServices(self, refToPlay, refPlaying=None):
-		list = []
+		lst = []
 
 		if self.type == self.BOUQUET:  # Bouquet
 			slist = self.sci.list(refToPlay)
 			services = slist and slist.getContent('S', True)
 
 			if services:
-				list.extend([
+				lst.extend([
 					(service, self.isServicePlayable(eServiceReference(service), refPlaying)) for service in services
 				])
 
 		else:  # Single service
 			playable = self.isServicePlayable(refToPlay, refPlaying)
-			list.append((refToPlay.toString(), playable))
+			lst.append((refToPlay.toString(), playable))
 
-		return list
+		return lst
 
 	def getList(self):
 		list = []

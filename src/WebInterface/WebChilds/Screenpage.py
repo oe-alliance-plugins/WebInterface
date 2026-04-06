@@ -1,4 +1,4 @@
-from twisted.web import resource, http, server, static
+from twisted.web import resource, http, server
 
 from .. import webif
 

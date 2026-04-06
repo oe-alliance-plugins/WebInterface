@@ -1,4 +1,3 @@
-from __future__ import print_function
 from twisted.web import resource, http, server
 from enigma import eDVBDB
 from Tools.Directories import resolveFilename, SCOPE_CONFIG
@@ -49,7 +48,7 @@ class ServiceListReload(resource.Resource):
 							<e2statetext>Servicelist reloaded</e2statetext>
 						</e2simplexmlresult>"""
 
-		except Exception as e:
+		except Exception:
 			request.setResponseCode(http.OK)
 
 			return """<?xml version="1.0" encoding="UTF-8"?>

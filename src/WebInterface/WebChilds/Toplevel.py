@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 from twisted.web import resource, static
 from twisted.python import util
 
@@ -15,11 +14,7 @@ from .RedirecToCurrentStream import RedirecToCurrentStreamResource
 from Tools.Directories import resolveFilename, SCOPE_MEDIA
 
 from .External.__init__ import importExternalModules
-externalChildren = []
 
-"""
-	.htc Files for IE Fixes need a certain Content-Type
-"""
 import mimetypes
 mimetypes.add_type('text/x-component', '.htc')
 mimetypes.add_type('text/cache-manifest', '.appcache')
@@ -32,6 +27,8 @@ if hasattr(static.File, 'render_GET'):
 			return self.render_GET(request)
 else:
 	File = static.File
+
+externalChildren = []
 
 
 def addExternalChild(child):

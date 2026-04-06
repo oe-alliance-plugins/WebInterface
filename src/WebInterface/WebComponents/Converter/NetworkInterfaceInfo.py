@@ -23,7 +23,7 @@ class NetworkInfo(Converter):
 
 	@cached
 	def getText(self):
-		iface = iface.interface
+		iface = iface.interface  # FIXME: #noqa F821
 
 		if self.type is self.MAC:
 			return iface.mac

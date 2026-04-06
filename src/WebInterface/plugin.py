@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function
-from __future__ import absolute_import
-Version = '$Header$'
 
-from enigma import eConsoleAppContainer
 from Plugins.Plugin import PluginDescriptor
 
-from Components.config import config, ConfigBoolean, ConfigSubsection, ConfigInteger, ConfigYesNo, ConfigText, ConfigEnableDisable
+from Components.config import config, ConfigSubsection, ConfigInteger, ConfigYesNo, ConfigText, ConfigEnableDisable
 from Screens.MessageBox import MessageBox
 from Components.SystemInfo import BoxInfo
 
@@ -16,20 +12,20 @@ from Tools.IO import saveFile
 
 from twisted.internet import reactor, ssl
 from twisted.internet.error import CannotListenError
-from twisted.web import server, http, util, static, resource
+from twisted.web import server, http, resource
 from twisted import version
 
 from socket import gethostname as socket_gethostname, has_ipv6
-from time import gmtime
-from os.path import isfile as os_isfile, exists as os_exists
+from os.path import exists as os_exists
 
 from .__init__ import _, __version__
-from .webif import get_random
 
 import random
 import uuid
 import time
 import hashlib
+
+Version = '$Header$'
 
 
 rootkey = ['\x9f', '|', '\xe4', 'G', '\xc9', '\xb4', '\xf4', '#', '&', '\xce', '\xb3', '\xfe', '\xda', '\xc9', 'U', '`', '\xd8', '\x8c', 's', 'o', '\x90', '\x9b', '\\', 'b', '\xc0', '\x89', '\xd1', '\x8c', '\x9e', 'J', 'T', '\xc5', 'X', '\xa1', '\xb8', '\x13', '5', 'E', '\x02', '\xc9', '\xb2', '\xe6', 't', '\x89', '\xde', '\xcd', '\x9d', '\x11', '\xdd', '\xc7', '\xf4', '\xe4', '\xe4', '\xbc', '\xdb', '\x9c', '\xea', '}', '\xad', '\xda', 't', 'r', '\x9b', '\xdc', '\xbc', '\x18', '3', '\xe7', '\xaf', '|', '\xae', '\x0c', '\xe3', '\xb5', '\x84', '\x8d', '\r', '\x8d', '\x9d', '2', '\xd0', '\xce', '\xd5', 'q', '\t', '\x84', 'c', '\xa8', ')', '\x99', '\xdc', '<', '"', 'x', '\xe8', '\x87', '\x8f', '\x02', ';', 'S', 'm', '\xd5', '\xf0', '\xa3', '_', '\xb7', 'T', '\t', '\xde', '\xa7', '\xf1', '\xc9', '\xae', '\x8a', '\xd7', '\xd2', '\xcf', '\xb2', '.', '\x13', '\xfb', '\xac', 'j', '\xdf', '\xb1', '\x1d', ':', '?']
@@ -142,7 +138,7 @@ def installCertificates(session):
 			print("[Webinterface].installCertificates ::  Installing newly generated certificate and key pair")
 			saveFile(CERT_FILE, crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
 			saveFile(KEY_FILE, crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
-		except IOError as e:
+		except OSError:
 			#Disable https
 			config.plugins.Webinterface.https.enabled.value = False
 			config.plugins.Webinterface.https.enabled.save()

@@ -1,6 +1,4 @@
-from __future__ import print_function
 from Components.Sources.Source import Source
-from Components.Converter import ServiceName
 from Components.config import config
 from Screens.InfoBar import InfoBar, MoviePlayer
 from enigma import eServiceReference, iPlayableServicePtr

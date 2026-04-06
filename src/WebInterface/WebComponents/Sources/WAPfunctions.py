@@ -1,14 +1,12 @@
-from __future__ import print_function
-Version = '$Header$'
-
 from Components.Sources.Source import Source
 from Components.Sources.ServiceList import ServiceList
 from Components.config import config
 from Tools.Directories import resolveFilename, SCOPE_CONFIG, SCOPE_HDD
 from enigma import eServiceReference
 
-from re import sub
 from time import strftime, localtime, time
+
+Version = '$Header$'
 
 
 class WAPfunctions(Source):
@@ -290,7 +288,7 @@ class WAPfunctions(Source):
 			while "" in taglist:
 				taglist.remove("")
 			file.close()
-		except IOError as ioe:
+		except OSError:
 			taglist = []
 		if tag not in taglist:
 			taglist = [tag] + taglist

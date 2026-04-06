@@ -1,4 +1,3 @@
-from __future__ import print_function
 from Components.Sources.Source import Source
 from Screens.MessageBox import MessageBox
 from os import system, path
@@ -36,7 +35,7 @@ class Message(Source):
 
 		try:
 			typeint = int(self.cmd['type'])
-		except (ValueError, TypeError) as e:
+		except (ValueError, TypeError):
 			return (False, _("type %s is not a number") % self.cmd['type'])
 
 		if typeint == MessageBox.TYPE_YESNO:
@@ -53,7 +52,7 @@ class Message(Source):
 
 		try:
 			mtimeout = int(self.cmd['timeout'])
-		except (ValueError, TypeError) as e:
+		except (ValueError, TypeError):
 			mtimeout = -1
 
 		if typeint == MessageBox.TYPE_YESNO:

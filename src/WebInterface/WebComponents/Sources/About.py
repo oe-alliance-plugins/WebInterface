@@ -1,4 +1,3 @@
-from __future__ import print_function
 # Parts of Code and idea by Homey
 from Components.Sources.Source import Source
 from Components.Network import iNetwork
@@ -13,12 +12,13 @@ class About(Source):
 		self.result = False, "unknown command"
 
 	def command(self):
-		ConvertIP = lambda l: "%s.%s.%s.%s" % tuple(l) if len(l) == 4 else "0.0.0.0"
+		def ConvertIP(x):
+			return "%s.%s.%s.%s" % tuple(x) if len(x) == 4 else "0.0.0.0"
 
 		if iNetwork.getNumberOfAdapters > 0:
 			iface = "eth0"  # iNetwork.getAdapterList()[0]
 			# print "[WebComponents.About] iface: %s" % iface
-			l = (
+			lst = (
 				iNetwork.getAdapterAttribute(iface, "mac"),
 				iNetwork.getAdapterAttribute(iface, "dhcp"),
 				ConvertIP(iNetwork.getAdapterAttribute(iface, "ip")),
@@ -27,7 +27,7 @@ class About(Source):
 			)
 		else:
 			print("[WebComponents.About] no network iface configured!")
-			l = (
+			lst = (
 				"N/A",
 				"N/A",
 				"N/A",
@@ -35,7 +35,7 @@ class About(Source):
 				"N/A",
 			)
 
-		return (l,)
+		return (lst,)
 
 	list = property(command)
 	lut = {"lanMac": 0, "lanDHCP": 1, "lanIP": 2, "lanMask": 3, "lanGW": 4

@@ -4,8 +4,8 @@ from ...WebChilds import Toplevel
 
 class External(Source):
 	def getList(self):
-		l = []
-		append = l.append
+		lst = []
+		append = lst.append
 		for child in Toplevel.externalChildren:
 			Len = len(child)
 			if Len > 5:
@@ -21,13 +21,13 @@ class External(Source):
 			else:
 				continue
 			append(child)
-		return l
+		return lst
 
 	list = property(getList)
 	lut = {
-				"Path": 0,
-				"Name": 1,
-				"Version": 2,
-				"HasGUI": 3,
-				"GUITarget": 4,
+		"Path": 0,
+		"Name": 1,
+		"Version": 2,
+		"HasGUI": 3,
+		"GUITarget": 4,
 	}

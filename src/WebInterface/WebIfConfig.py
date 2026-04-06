@@ -1,20 +1,14 @@
-from __future__ import print_function
-from __future__ import absolute_import
-Version = '$Header$'
 
-from .__init__ import *
+from . import _
 
-from enigma import eListboxPythonMultiContent, gFont
 from Screens.Screen import Screen
-from Screens.MessageBox import MessageBox
 
-from Components.config import config, getConfigListEntry, ConfigSubsection, ConfigInteger, ConfigYesNo, ConfigText, ConfigSelection
+from Components.config import config, getConfigListEntry
 from Components.ConfigList import ConfigListScreen
 from Components.Sources.StaticText import StaticText
-from Components.MenuList import MenuList
-from Components.MultiContent import MultiContentEntryText
-
 from Components.ActionMap import ActionMap
+
+Version = '$Header$'
 
 
 class WebIfConfigScreen(ConfigListScreen, Screen):

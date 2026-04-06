@@ -1,10 +1,9 @@
-from __future__ import print_function
 from Components.Sources.Source import Source
 from Components.config import config
 
 from Screens.MessageBox import MessageBox
 #DO NOT REMOVE THE FOLLOWING IMPORT, it ensures that config.sleeptimer.defaulttime is there
-import Screens.SleepTimerEdit
+import Screens.SleepTimerEdit  # noqa: F401
 
 
 class SleepTimer(Source):
