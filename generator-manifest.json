@@ -1,0 +1,19 @@
+{
+  "branch": "main",
+  "depends_recipe": "",
+  "description_control": "Control enigma2 with your Browser",
+  "description_recipe": "Control enigma2 with your Browser",
+  "history_source_dir": "webinterface",
+  "internal_package_name": "enigma2-plugin-extensions-webinterface",
+  "module_dir_name": "WebInterface",
+  "output_subdir": "webinterface",
+  "package_name": "enigma2-plugin-extensions-webinterface",
+  "plugin_src_rel": "webinterface",
+  "python_package": "WebInterface",
+  "rdepends_recipe": "",
+  "replaces": "",
+  "repo_name": "WebInterface",
+  "rrecommends": "",
+  "rreplaces": "",
+  "selected_from_plugin_list": true
+}

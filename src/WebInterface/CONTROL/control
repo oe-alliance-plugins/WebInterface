@@ -1,2 +1,0 @@
-Description: Control enigma2 with your Browser
-Depends: python3-twisted-web, python3-pyopenssl, python3-crypt, python3-misc, aio-grab
